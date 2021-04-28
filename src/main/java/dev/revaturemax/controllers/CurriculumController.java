@@ -1,0 +1,9 @@
+package dev.revaturemax.controllers;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/curriculum")
+public class CurriculumController {
+}

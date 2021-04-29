@@ -3,18 +3,28 @@ package dev.revaturemax.models;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@Entity
 @Component
 @Scope("prototype")
+@Table(name = "quiz")
 public class Quiz {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "quiz_id")
     private long quizId;
 
     private String name;
 
+    @ManyToMany
+    @JoinTable(name = "quiz_tech",
+            joinColumns = @JoinColumn(name = "quiz_id"),
+            inverseJoinColumns = @JoinColumn(name="tech_id"))
     private List<Tech> techs = new ArrayList<>();
 
     public Quiz() { }

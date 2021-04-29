@@ -3,42 +3,59 @@ package dev.revaturemax.models;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@Entity
 @Component
 @Scope("prototype")
+@Table(name = "tech")
 public class Tech {
 
-    private long techId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "tech_id")
+    private Long id;
 
     private String name;
 
-    private List<String> questions = new ArrayList<>();
+    @OneToMany(mappedBy = "tech_id", cascade = CascadeType.ALL)
+    private List<Topic> topics = new ArrayList<>();
 
-    public Tech() { }
+    @OneToMany(mappedBy ="tech_id", cascade = CascadeType.ALL)
+    private List<TechReview> questions = new ArrayList<>();
 
-    public Tech(long techId, String name, List<String> questions) {
-        this.techId = techId;
-        this.name = name;
-        this.questions = questions;
+    @Override
+    public String toString() {
+        return "Tech{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", topics=" + topics +
+                ", questions=" + questions +
+                '}';
     }
 
-    public List<String> getQuestions() {
-        return questions;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Tech tech = (Tech) o;
+        return Objects.equals(id, tech.id) && Objects.equals(name, tech.name) && Objects.equals(topics, tech.topics) && Objects.equals(questions, tech.questions);
     }
 
-    public void setQuestions(List<String> questions) {
-        this.questions = questions;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, topics, questions);
     }
 
-    public long getTechId() {
-        return techId;
+    public Long getId() {
+        return id;
     }
 
-    public void setTechId(long techId) {
-        this.techId = techId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -49,25 +66,29 @@ public class Tech {
         this.name = name;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Tech tech = (Tech) o;
-        return techId == tech.techId && Objects.equals(name, tech.name);
+    public List<Topic> getTopics() {
+        return topics;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(techId, name);
+    public void setTopics(List<Topic> topics) {
+        this.topics = topics;
     }
 
-    @Override
-    public String toString() {
-        return "Tech{" +
-                "techId=" + techId +
-                ", name='" + name + '\'' +
-                ", questions=" + questions +
-                '}';
+    public List<TechReview> getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(List<TechReview> questions) {
+        this.questions = questions;
+    }
+
+    public Tech(Long id, String name, List<Topic> topics, List<TechReview> questions) {
+        this.id = id;
+        this.name = name;
+        this.topics = topics;
+        this.questions = questions;
+    }
+
+    public Tech() {
     }
 }

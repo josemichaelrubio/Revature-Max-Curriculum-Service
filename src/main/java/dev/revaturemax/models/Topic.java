@@ -3,23 +3,31 @@ package dev.revaturemax.models;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.*;
 import java.util.Objects;
 
+@Entity
 @Component
 @Scope("prototype")
+@Table(name = "topic")
 public class Topic {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "topic_id")
     private long id;
 
-    private Tech tech;
+    @ManyToOne
+    @JoinColumn(name = "tech_id")
+    private Tech techId;
 
     private String name;
 
     public Topic() { }
 
-    public Topic(long id, Tech tech, String name) {
+    public Topic(long id, Tech techId, String name) {
         this.id = id;
-        this.tech = tech;
+        this.techId = techId;
         this.name = name;
     }
 
@@ -31,12 +39,12 @@ public class Topic {
         this.id = id;
     }
 
-    public Tech getTech() {
-        return tech;
+    public Tech getTechId() {
+        return techId;
     }
 
-    public void setTech(Tech tech) {
-        this.tech = tech;
+    public void setTechId(Tech techId) {
+        this.techId = techId;
     }
 
     public String getName() {
@@ -52,19 +60,19 @@ public class Topic {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Topic topic = (Topic) o;
-        return id == topic.id && Objects.equals(tech, topic.tech) && Objects.equals(name, topic.name);
+        return id == topic.id && Objects.equals(techId, topic.techId) && Objects.equals(name, topic.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, tech, name);
+        return Objects.hash(id, techId, name);
     }
 
     @Override
     public String toString() {
         return "Topic{" +
                 "id=" + id +
-                ", tech=" + tech +
+                ", techId=" + techId +
                 ", name='" + name + '\'' +
                 '}';
     }

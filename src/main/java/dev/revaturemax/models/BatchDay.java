@@ -29,8 +29,12 @@ public class BatchDay {
     private List<Topic> topics = new ArrayList<>();
 
     @OneToOne
-    @JoinColumn(referencedColumnName = "quiz_id")
+    @JoinColumn(name = "quiz_id")
     private Quiz quiz;
+
+    @OneToOne
+    @JoinColumn(name = "qc_id")
+    private QC qc;
 
     public BatchDay() {
     }

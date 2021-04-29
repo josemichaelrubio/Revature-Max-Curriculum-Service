@@ -21,10 +21,10 @@ public class Tech {
 
     private String name;
 
-    @OneToMany(mappedBy = "tech_id", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "tech", cascade = CascadeType.ALL)
     private List<Topic> topics = new ArrayList<>();
 
-    @OneToMany(mappedBy ="tech_id", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy ="tech", cascade = CascadeType.ALL)
     private List<TechReview> questions = new ArrayList<>();
 
     @Override

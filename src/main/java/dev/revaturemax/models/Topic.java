@@ -19,15 +19,15 @@ public class Topic {
 
     @ManyToOne
     @JoinColumn(name = "tech_id")
-    private Tech techId;
+    private Tech tech;
 
     private String name;
 
     public Topic() { }
 
-    public Topic(long id, Tech techId, String name) {
+    public Topic(long id, Tech tech, String name) {
         this.id = id;
-        this.techId = techId;
+        this.tech = tech;
         this.name = name;
     }
 
@@ -39,12 +39,12 @@ public class Topic {
         this.id = id;
     }
 
-    public Tech getTechId() {
-        return techId;
+    public Tech getTech() {
+        return tech;
     }
 
-    public void setTechId(Tech techId) {
-        this.techId = techId;
+    public void setTech(Tech tech) {
+        this.tech = tech;
     }
 
     public String getName() {
@@ -60,19 +60,19 @@ public class Topic {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Topic topic = (Topic) o;
-        return id == topic.id && Objects.equals(techId, topic.techId) && Objects.equals(name, topic.name);
+        return id == topic.id && Objects.equals(tech, topic.tech) && Objects.equals(name, topic.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, techId, name);
+        return Objects.hash(id, tech, name);
     }
 
     @Override
     public String toString() {
         return "Topic{" +
                 "id=" + id +
-                ", techId=" + techId +
+                ", tech=" + tech +
                 ", name='" + name + '\'' +
                 '}';
     }

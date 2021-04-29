@@ -1,9 +1,9 @@
 package dev.revaturemax.repositories;
 
-import dev.revaturemax.models.Curriculum;
+import dev.revaturemax.models.BatchDay;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CurriculumRepository extends JpaRepository<Curriculum, Long> {
+public interface BatchDayRepository extends JpaRepository<BatchDay, Long> {
 }

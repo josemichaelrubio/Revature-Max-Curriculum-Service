@@ -15,13 +15,13 @@ public class FavNotes {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "fav_notes_id")
-    private Long id;
+    private long id;
 
     @Column(name = "employee_id")
-    private Long employeeId;
+    private long employeeId;
 
     @Column(name = "notes_id")
-    private Long notesId;
+    private long notesId;
 
     @Override
     public String toString() {
@@ -46,15 +46,15 @@ public class FavNotes {
         return Objects.hash(id, employeeId, notesId, topic);
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public Long getEmployeeId() {
+    public long getEmployeeId() {
         return employeeId;
     }
 
@@ -62,7 +62,7 @@ public class FavNotes {
         this.employeeId = employeeId;
     }
 
-    public Long getNotesId() {
+    public long getNotesId() {
         return notesId;
     }
 

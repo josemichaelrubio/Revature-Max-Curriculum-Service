@@ -18,9 +18,12 @@ public class BatchDay {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "batch_day_id")
-    private Long id;
+    private long id;
 
     private LocalDate date;
+
+    @Column(name = "batch_id")
+    private long batchId;
 
     @ManyToMany
     @JoinTable(name = "batch_day_topic",
@@ -44,6 +47,14 @@ public class BatchDay {
         this.date = date;
         this.topics = topics;
         this.quiz = quiz;
+    }
+
+    public BatchDay(LocalDate date, Long batchId, List<Topic> topics, Quiz quiz, QC qc) {
+        this.date = date;
+        this.batchId = batchId;
+        this.topics = topics;
+        this.quiz = quiz;
+        this.qc = qc;
     }
 
     @Override

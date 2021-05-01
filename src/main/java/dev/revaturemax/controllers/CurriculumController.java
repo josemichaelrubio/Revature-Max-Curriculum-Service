@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/curriculum")
@@ -45,6 +45,12 @@ public class CurriculumController {
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
+
+    // Get mapping -- queries with a list of topic id's
+    @GetMapping("/topics")
+    public ResponseEntity<List<Topic>> getMultipleTopics(@RequestParam Set<Long> topicIds){
+        return ResponseEntity.ok().body(curriculumService.getMultipleTopics(topicIds));
+    }
 
     /*
      * mapping for /techs/{tech-id}/topics
@@ -87,6 +93,19 @@ public class CurriculumController {
         curriculumService.removeTopic(techId, topicId);
         return new ResponseEntity<>(HttpStatus.OK);
 
+    }
+
+    // method for getting quizzes with a list of quiz id's in the query param (i.e. /curriculum/quizzes?id=1,2,3,4,5
+    @GetMapping(value = "/quizzes", produces = "application/json")
+    public ResponseEntity<List<Quiz>> getMultipleQuizzes(@RequestParam Set<Long> ids){
+        return ResponseEntity.ok().body(curriculumService.getMultipleQuizzes(ids));
+    }
+
+
+    // method for pulling quiz by an id
+    @GetMapping("/quizzes/{quiz-id}")
+    public ResponseEntity<Quiz> getQuiz(@PathVariable("quiz-id") long quizId){
+        return ResponseEntity.ok().body(curriculumService.getOneQuiz(quizId));
     }
 
 

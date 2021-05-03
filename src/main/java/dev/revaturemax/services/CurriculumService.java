@@ -3,6 +3,7 @@ package dev.revaturemax.services;
 import dev.revaturemax.models.Quiz;
 import dev.revaturemax.models.Tech;
 import dev.revaturemax.models.Topic;
+import dev.revaturemax.projections.TopicDTO;
 import dev.revaturemax.repositories.CurriculumRepository;
 import dev.revaturemax.repositories.QuizRepository;
 import dev.revaturemax.repositories.TechRepository;
@@ -50,7 +51,7 @@ public class CurriculumService {
     }
 
     // getting multiple topics from a set of ids
-    public List<Topic> getMultipleTopics(Set<Long> topicIds){
+    public List<TopicDTO> getMultipleTopics(Set<Long> topicIds){
         return topicRepository.findAllById(topicIds);
     }
 

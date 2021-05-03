@@ -1,6 +1,6 @@
 package dev.revaturemax.repositories;
 
-import dev.revaturemax.models.Tech;
+
 import dev.revaturemax.models.Topic;
 import dev.revaturemax.projections.TopicDTO;
 import org.springframework.data.jpa.repository.JpaRepository;

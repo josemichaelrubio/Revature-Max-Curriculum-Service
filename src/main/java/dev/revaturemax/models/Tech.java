@@ -89,6 +89,11 @@ public class Tech {
         this.questions = questions;
     }
 
+    public Tech(Long id, String name){
+        this.id = id;
+        this.name = name;
+    }
+
     public Tech() {
     }
 }

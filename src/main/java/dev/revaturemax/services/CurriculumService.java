@@ -3,6 +3,7 @@ package dev.revaturemax.services;
 import dev.revaturemax.models.Quiz;
 import dev.revaturemax.models.Tech;
 import dev.revaturemax.models.Topic;
+import dev.revaturemax.projections.TopicDTO;
 import dev.revaturemax.repositories.CurriculumRepository;
 import dev.revaturemax.repositories.QuizRepository;
 import dev.revaturemax.repositories.TechRepository;
@@ -12,8 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class CurriculumService {
@@ -49,6 +50,11 @@ public class CurriculumService {
         return techRepository.getOne(techId).getTopics();
     }
 
+    // getting multiple topics from a set of ids
+    public List<TopicDTO> getMultipleTopics(Set<Long> topicIds){
+        return topicRepository.findAllById(topicIds);
+    }
+
     @Transactional
     public void createTopic(long techId, Topic topic){
         Tech tech = techRepository.getOne(techId);
@@ -76,6 +82,14 @@ public class CurriculumService {
 
 
     // service crud methods for quizzes within a specific technology
+    public Quiz getOneQuiz(long quizId) {
+        return quizRepository.getOne(quizId);
+    }
+
+    public List<Quiz> getMultipleQuizzes(Set<Long> ids){
+        return quizRepository.findAllById(ids);
+    }
+
     @Transactional
     public ResponseEntity<HttpStatus> updateQuizzes( long quizId, List<Tech> techs) {
 

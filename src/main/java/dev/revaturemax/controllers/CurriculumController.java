@@ -3,6 +3,7 @@ package dev.revaturemax.controllers;
 import dev.revaturemax.models.Quiz;
 import dev.revaturemax.models.Tech;
 import dev.revaturemax.models.Topic;
+import dev.revaturemax.projections.TopicDTO;
 import dev.revaturemax.services.CurriculumService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -48,7 +49,7 @@ public class CurriculumController {
 
     // Get mapping -- queries with a list of topic id's
     @GetMapping("/topics")
-    public ResponseEntity<List<Topic>> getMultipleTopics(@RequestParam Set<Long> topicIds){
+    public ResponseEntity<List<TopicDTO>> getMultipleTopics(@RequestParam Set<Long> topicIds){
         return ResponseEntity.ok().body(curriculumService.getMultipleTopics(topicIds));
     }
 

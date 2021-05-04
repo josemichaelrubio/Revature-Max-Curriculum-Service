@@ -1,5 +1,6 @@
 package dev.revaturemax.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -21,9 +22,11 @@ public class Tech {
 
     private String name;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "tech", cascade = CascadeType.ALL)
     private List<Topic> topics = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy ="tech", cascade = CascadeType.ALL)
     private List<TechReview> questions = new ArrayList<>();
 

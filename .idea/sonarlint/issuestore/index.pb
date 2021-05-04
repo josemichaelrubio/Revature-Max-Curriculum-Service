@@ -3,8 +3,11 @@
 .src/main/java/dev/revaturemax/models/Quiz.java,d\4\d49f0172ffafda845a9e6a5f41a6edb4e4adb4e5
 \
 ,src/main/java/dev/revaturemax/models/QC.java,1\9\195027ea75274b688bb1ff696560e39cfc106db3
+<<<<<<< Updated upstream
 d
 4src/main/java/dev/revaturemax/models/TechReview.java,e\1\e1dcf68cd4981d44bc197d9b7e88a5f6589489c6
+=======
+>>>>>>> Stashed changes
 t
 Dsrc/main/java/dev/revaturemax/repositories/CurriculumRepository.java,4\4\4465dd13fb6524db3c33317643fe21714d85d3a6
 f

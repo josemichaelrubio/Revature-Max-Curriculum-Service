@@ -24,7 +24,7 @@ public class Tech {
 
     @JsonIgnore
     @OneToMany(mappedBy = "tech", cascade = CascadeType.ALL)
-    private List<Topic> topics = new ArrayList<>();
+    private List<Topic> topics = new ArrayList<>();     // perhaps, comment this out in the future(according to matthew)
 
     @JsonIgnore
     @OneToMany(mappedBy ="tech", cascade = CascadeType.ALL)
@@ -92,9 +92,15 @@ public class Tech {
         this.questions = questions;
     }
 
-    public Tech(Long id, String name){
+    public Tech(Long id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+    public Tech(String name, List<Topic> topics, List<TechReview> questions) {
+        this.name = name;
+        this.topics = topics;
+        this.questions = questions;
     }
 
     public Tech() {

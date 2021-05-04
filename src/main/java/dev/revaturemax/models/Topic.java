@@ -31,6 +31,11 @@ public class Topic {
         this.name = name;
     }
 
+    public Topic(Tech tech, String name) {
+        this.tech = tech;
+        this.name = name;
+    }
+
     public long getId() {
         return id;
     }

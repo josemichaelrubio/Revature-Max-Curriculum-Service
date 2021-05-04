@@ -27,8 +27,6 @@ m
 =src/main/java/dev/revaturemax/services/CurriculumService.java,8\d\8d1d88d5844cb0c89048ad25727815e0ed3bf804
 d
 4src/main/java/dev/revaturemax/models/Curriculum.java,4\d\4def0ce51f970b70b55e7e61cad9200637368104
-b
-2src/main/java/dev/revaturemax/models/FavNotes.java,1\7\17cadc5af838c742cd621d102270e889cb04bc92
 r
 Bsrc/main/java/dev/revaturemax/repositories/BatchDayRepository.java,8\d\8d1083bc46ce8168d83d7756bc90d2d86d0c3213
 b
@@ -44,3 +42,5 @@ Y
 .gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
 9
 	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
+g
+7src/main/java/dev/revaturemax/projections/TopicDTO.java,5\9\59ac7e4c1aa4033744c157eae4603356ab4077a5

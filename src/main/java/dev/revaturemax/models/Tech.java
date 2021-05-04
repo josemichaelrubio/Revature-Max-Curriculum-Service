@@ -4,8 +4,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -21,19 +19,11 @@ public class Tech {
 
     private String name;
 
-    @OneToMany(mappedBy = "tech", cascade = CascadeType.ALL)
-    private List<Topic> topics = new ArrayList<>();
-
-    @OneToMany(mappedBy ="tech", cascade = CascadeType.ALL)
-    private List<TechReview> questions = new ArrayList<>();
-
     @Override
     public String toString() {
         return "Tech{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", topics=" + topics +
-                ", questions=" + questions +
                 '}';
     }
 
@@ -42,12 +32,12 @@ public class Tech {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Tech tech = (Tech) o;
-        return Objects.equals(id, tech.id) && Objects.equals(name, tech.name) && Objects.equals(topics, tech.topics) && Objects.equals(questions, tech.questions);
+        return Objects.equals(id, tech.id) && Objects.equals(name, tech.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, topics, questions);
+        return Objects.hash(id, name);
     }
 
     public Long getId() {
@@ -66,31 +56,14 @@ public class Tech {
         this.name = name;
     }
 
-    public List<Topic> getTopics() {
-        return topics;
-    }
-
-    public void setTopics(List<Topic> topics) {
-        this.topics = topics;
-    }
-
-    public List<TechReview> getQuestions() {
-        return questions;
-    }
-
-    public void setQuestions(List<TechReview> questions) {
-        this.questions = questions;
-    }
-
-    public Tech(Long id, String name, List<Topic> topics, List<TechReview> questions) {
+    public Tech(Long id, String name) {
         this.id = id;
         this.name = name;
-        this.topics = topics;
-        this.questions = questions;
+
     }
 
-    public Tech(Long id, String name){
-        this.id = id;
+    public Tech(String name){
+
         this.name = name;
     }
 

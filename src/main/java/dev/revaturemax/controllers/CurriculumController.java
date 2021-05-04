@@ -58,12 +58,12 @@ public class CurriculumController {
      * Designed for CRUD individual topics
      */
 
-    @GetMapping("/techs/{id}/topics")
+    @GetMapping("/techs/{techId}/topics")
     public ResponseEntity<List<Topic>> getAllTopics(@PathVariable long techId){
         return ResponseEntity.ok().body(curriculumService.getTopics(techId));
     }
 
-    @PostMapping("/techs/{id}/topics")
+    @PostMapping("/techs/{techId}/topics")
     public ResponseEntity<HttpStatus> postNewTopic(@PathVariable long techId,
                                                    @RequestBody Topic topic)
     {

@@ -5,6 +5,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -19,6 +21,35 @@ public class Tech {
     private Long id;
 
     private String name;
+
+    @OneToMany
+    private List<Topic> topics = new ArrayList<>();
+
+    public List<Topic> getTopics() {
+        return topics;
+    }
+
+    public void setTopics(List<Topic> topics) {
+        this.topics = topics;
+    }
+
+    public List<TechReview> getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(List<TechReview> questions) {
+        this.questions = questions;
+    }
+
+    @OneToMany
+    private List<TechReview> questions = new ArrayList<>();
+
+    public Tech(Long id, String name, List<Topic> topics, List<TechReview> questions) {
+        this.id = id;
+        this.name = name;
+        this.topics = topics;
+        this.questions = questions;
+    }
 
     @Override
     public String toString() {

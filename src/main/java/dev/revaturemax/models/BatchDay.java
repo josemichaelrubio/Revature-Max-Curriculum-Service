@@ -41,12 +41,12 @@ public class BatchDay {
 
     public BatchDay() {
     }
-
-    public BatchDay(Long id, LocalDate date, List<Topic> topics, Quiz quiz) {
+    public BatchDay(Long id, LocalDate date, List<Topic> topics, Quiz quiz,QC qc) {
         this.id = id;
         this.date = date;
         this.topics = topics;
         this.quiz = quiz;
+        this.qc = qc;
     }
 
     public BatchDay(LocalDate date, Long batchId, List<Topic> topics, Quiz quiz, QC qc) {
@@ -62,12 +62,12 @@ public class BatchDay {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BatchDay batchDay = (BatchDay) o;
-        return Objects.equals(id, batchDay.id) && Objects.equals(date, batchDay.date) && Objects.equals(topics, batchDay.topics) && Objects.equals(quiz, batchDay.quiz);
+        return id == batchDay.id && batchId == batchDay.batchId && date.equals(batchDay.date) && topics.equals(batchDay.topics) && quiz.equals(batchDay.quiz) && qc.equals(batchDay.qc);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, date, topics, quiz);
+        return Objects.hash(id, date, batchId, topics, quiz, qc);
     }
 
     @Override
@@ -75,8 +75,10 @@ public class BatchDay {
         return "BatchDay{" +
                 "id=" + id +
                 ", date=" + date +
+                ", batchId=" + batchId +
                 ", topics=" + topics +
                 ", quiz=" + quiz +
+                ", qc=" + qc +
                 '}';
     }
 
@@ -110,5 +112,13 @@ public class BatchDay {
 
     public void setQuiz(Quiz quiz) {
         this.quiz = quiz;
+    }
+
+    public QC getQc() {
+        return qc;
+    }
+
+    public void setQc(QC qc) {
+        this.qc = qc;
     }
 }

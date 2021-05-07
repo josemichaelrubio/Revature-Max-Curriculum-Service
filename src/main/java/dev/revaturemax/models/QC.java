@@ -17,7 +17,7 @@ public class QC {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "qc_id")
-    private Long id;
+    private long id;
 
     private String name;
 
@@ -27,33 +27,18 @@ public class QC {
             inverseJoinColumns = @JoinColumn(name="tech_id"))
     private List<Tech> techs = new ArrayList<>();
 
-    @Override
-    public String toString() {
-        return "QC{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", techs=" + techs +
-                '}';
+    public QC(){}
+    public QC(long id, String name, List<Tech> techs) {
+        this.id = id;
+        this.name = name;
+        this.techs = techs;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        QC qc = (QC) o;
-        return Objects.equals(id, qc.id) && Objects.equals(name, qc.name) && Objects.equals(techs, qc.techs);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, techs);
-    }
-
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -73,12 +58,25 @@ public class QC {
         this.techs = techs;
     }
 
-    public QC(Long id, String name, List<Tech> techs) {
-        this.id = id;
-        this.name = name;
-        this.techs = techs;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        QC qc = (QC) o;
+        return id == qc.id && name.equals(qc.name) && techs.equals(qc.techs);
     }
 
-    public QC() {
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, techs);
+    }
+
+    @Override
+    public String toString() {
+        return "QC{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", techs=" + techs +
+                '}';
     }
 }

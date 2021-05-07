@@ -22,12 +22,13 @@ public interface BatchDayRepository extends JpaRepository<BatchDay, Long> {
      * collections of each CurriculumDay. Trying to fetch both at once will result in Hibernate throwing
      * MultipleBagFetchException. Calling them each when not wrapped in the same session will not cache the results
      * of the first. */
-    @Query("SELECT DISTINCT cd FROM BatchDay cd LEFT JOIN FETCH cd.quiz WHERE cd.batchId = :batchId")
-    @QueryHints(value = {@QueryHint(name = org.hibernate.jpa.QueryHints.HINT_PASS_DISTINCT_THROUGH, value = "false")})
-    List<BatchDay> findByBatchId(long batchId);
+//    @Query("SELECT DISTINCT cd FROM BatchDay cd LEFT JOIN FETCH cd.quiz WHERE cd.batchId = :batchId")
+//    @QueryHints(value = {@QueryHint(name = org.hibernate.jpa.QueryHints.HINT_PASS_DISTINCT_THROUGH, value = "false")})
+//    List<BatchDay> findByBatchId(long batchId);
+//
+//    @Query("SELECT DISTINCT cd FROM BatchDay cd LEFT JOIN FETCH cd.topics t LEFT JOIN FETCH t.tech WHERE cd IN :days")
+//    @QueryHints(value = {@QueryHint(name = org.hibernate.jpa.QueryHints.HINT_PASS_DISTINCT_THROUGH, value = "false")})
+//    List<BatchDay> findBatchDayTopics(List<BatchDay> days);
 
-    @Query("SELECT DISTINCT cd FROM BatchDay cd LEFT JOIN FETCH cd.topics t LEFT JOIN FETCH t.tech WHERE cd IN :days")
-    @QueryHints(value = {@QueryHint(name = org.hibernate.jpa.QueryHints.HINT_PASS_DISTINCT_THROUGH, value = "false")})
-    List<BatchDay> findBatchDayTopics(List<BatchDay> days);
-
+    List<BatchDay> findBatchDayByBatchId(long batchId);
 }

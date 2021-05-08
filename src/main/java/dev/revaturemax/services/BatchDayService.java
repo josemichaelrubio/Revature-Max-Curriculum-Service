@@ -22,6 +22,7 @@ import java.util.Optional;
 @Service
 public class BatchDayService {
 
+
     @Autowired
     private ObjectMapper objectMapper;
     @Autowired
@@ -31,15 +32,9 @@ public class BatchDayService {
 
     @Transactional
     public ResponseEntity<String> getAllBatchDays(long batchId){
-        List<BatchDay> days = batchDayRepository.findByBatchId(batchId);
-        days = batchDayRepository.findBatchDayTopics(days);
-        days.sort(Comparator.comparing(BatchDay::getDate));
-
-        SimpleFilterProvider filter = new SimpleFilterProvider();
-        filter.addFilter("Quiz", SimpleBeanPropertyFilter.serializeAllExcept("Topic"));
+        List<BatchDay> days1 = batchDayRepository.findBatchDayByBatchId(batchId);
         try {
-            return new ResponseEntity<String>(objectMapper.writer(filter).writeValueAsString(days),
-                    HttpStatus.OK);
+            return new ResponseEntity<String>(objectMapper.writeValueAsString(days1),HttpStatus.OK);
         } catch (JsonProcessingException exception) {
             exception.printStackTrace();
             return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -51,9 +46,10 @@ public class BatchDayService {
         LocalDate date = batchDayRequest.getDate();
         long batchId = batchDayRequest.getBatchId();
         Optional<BatchDay> day = batchDayRepository.findBatchDayByBatchIdAndDate(batchId, date);
-        if (day.isPresent()) {
+        if (day!=null && day.isPresent()) {
             day.get().setQuiz(batchDayRequest.getQuiz());
             day.get().setTopics(batchDayRequest.getTopics());
+            day.get().setQc(batchDayRequest.getQc());
            batchDayRepository.save(day.get());
         } else {
             BatchDay newDay = new BatchDay(date, batchId, batchDayRequest.getTopics(), batchDayRequest.getQuiz(), batchDayRequest.getQc());

@@ -1,4 +1,33 @@
 server:
+  port: 8081
+
+spring:
+  application:
+    name: curriculum-service
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+  jackson:
+    serialization:
+      FAIL_ON_EMPTY_BEANS: false
+  devtools:
+    restart:
+      enabled: true
+  datasource:
+    url: jdbc:sqlserver://ashields-revature.database.windows.net:1433;databaseName=curriculumservice
+    username: andrew.shields@ashields-revature
+    password: in2Space!
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+  jpa:
+    database-platform: org.hibernate.dialect.SQLServerDialect
+    open-in-view: false
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+
+---
+server:
   port: 8085
 
 spring:
@@ -8,45 +37,25 @@ spring:
     consul:
       host: 13.82.103.66
       port: 8500
-  jackson:
-    serialization:
-      FAIL_ON_EMPTY_BEANS: false
+  config:
+    activate:
+      on-profile: prod
   devtools:
     restart:
       enabled: true
   datasource:
-    driver-class: com.microsoft.sqlserver.jdbc.SQLserverDriver
-    url: ${DB_URL}
-    username: ${DB_USER}
-    password: ${DB_PASS}
-    jpa:
-      show-sql: true
-      generate-ddl: true
-      hibernate:
-        ddl-auto: update
+    url: jdbc:sqlserver://ashields-revature.database.windows.net:1433;databaseName=curriculumservice
+    username: andrew.shields@ashields-revature
+    password: in2Space!
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+  jpa:
+    database-platform: org.hibernate.dialect.SQLServerDialect
+    open-in-view: false
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
 
----
 
-server:
-  port: 8085
-spring:
-  application:
-    name: curriculum-service-dev
-  cloud:
-    consul:
-      host: localhost
-      port: 8500
-  config:
-    activate:
-      on-profile: dev
-  datasource:
-    driver-class: com.microsoft.sqlserver.jdbc.SQLserverDriver
-    url: ${DB_URL}
-    username: ${DB_USER}
-    password: ${DB_PASS}
-    jpa:
-      show-sql: true
-      generate-ddl: true
-      hibernate:
-        ddl-auto: update
+
+
 

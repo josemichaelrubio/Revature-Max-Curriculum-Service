@@ -1,5 +1,6 @@
 package dev.revaturemax.controllers;
 
+import dev.revaturemax.models.QC;
 import dev.revaturemax.models.Quiz;
 import dev.revaturemax.models.Tech;
 import dev.revaturemax.models.Topic;
@@ -128,6 +129,11 @@ public class CurriculumController {
                                              @PathVariable("quiz-id") long quizId)
     {
         return curriculumService.removeQuiz(techId, quizId);
+    }
+
+    @GetMapping(value="/qcs", produces="application/json")
+    public ResponseEntity<List<QC>> getMultipleQCs(@RequestParam Set<Long> qcIds) {
+        return ResponseEntity.ok(curriculumService.getMultipleQCs(qcIds));
     }
 
 }

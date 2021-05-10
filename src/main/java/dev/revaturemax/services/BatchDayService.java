@@ -8,6 +8,7 @@ import dev.revaturemax.dto.BatchDayRequest;
 import dev.revaturemax.models.BatchDay;
 import dev.revaturemax.models.Quiz;
 import dev.revaturemax.repositories.BatchDayRepository;
+import dev.revaturemax.repositories.QCRepository;
 import dev.revaturemax.repositories.QuizRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,6 +29,8 @@ public class BatchDayService {
     @Autowired
     private QuizRepository quizRepository;
     @Autowired
+    private QCRepository qcRepository;
+    @Autowired
     private BatchDayRepository batchDayRepository;
 
     @Transactional
@@ -47,7 +50,10 @@ public class BatchDayService {
         long batchId = batchDayRequest.getBatchId();
         Optional<BatchDay> day = batchDayRepository.findBatchDayByBatchIdAndDate(batchId, date);
         if (day!=null && day.isPresent()) {
-            day.get().setQuiz(batchDayRequest.getQuiz());
+            if (batchDayRequest.getQuiz() != null)
+                day.get().setQuiz(quizRepository.getOne(batchDayRequest.getQuiz().getQuizId()));
+            if (batchDayRequest.getQc() != null)
+                day.get().setQc(qcRepository.findById(batchDayRequest.getQc().getId()).orElse(null));
             day.get().setTopics(batchDayRequest.getTopics());
             day.get().setQc(batchDayRequest.getQc());
            batchDayRepository.save(day.get());

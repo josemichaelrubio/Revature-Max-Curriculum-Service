@@ -118,6 +118,10 @@ public class CurriculumService {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    public List<QC> getMultipleQCs(Set<Long> qcIds) {
+        return qcRepository.findAllById(qcIds);
+    }
+
 
 	public List<Quiz> getAllQuizzes() {
         return quizRepository.findAll();

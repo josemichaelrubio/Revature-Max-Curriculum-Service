@@ -2,13 +2,11 @@ package dev.revaturemax.services;
 
 import dev.revaturemax.controllers.CurriculumController;
 import dev.revaturemax.models.Curriculum;
+import dev.revaturemax.models.QC;
 import dev.revaturemax.models.Tech;
 import dev.revaturemax.models.Topic;
 import dev.revaturemax.projections.TopicDTO;
-import dev.revaturemax.repositories.CurriculumRepository;
-import dev.revaturemax.repositories.QuizRepository;
-import dev.revaturemax.repositories.TechRepository;
-import dev.revaturemax.repositories.TopicRepository;
+import dev.revaturemax.repositories.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -41,6 +39,8 @@ class CurriculumServiceTest {
     private TechRepository techRepository;
     @MockBean
     private QuizRepository quizRepository;
+    @MockBean
+    private QCRepository qcRepository;
 
     private static final List<Tech> mockTechs = new ArrayList<>();
 
@@ -85,6 +85,32 @@ class CurriculumServiceTest {
         logger.info(mockDTOs.toString());
 
         assertEquals(mockDTOs, actual);
+
+    }
+
+    @Test
+    public void getMultipleQCsWithQCIds() {
+        List<QC> someQCs = new ArrayList<>();
+
+        List<Tech> techForQC1 = new ArrayList<>();
+        techForQC1.add(new Tech(1L, "Java"));
+        List<Tech> techForQC2 = new ArrayList<>();
+        techForQC2.add(new Tech(2L, "SQL"));
+
+
+        someQCs.add(new QC(1L, "QC 1", techForQC1));
+        someQCs.add(new QC(2L, "QC 2", techForQC2));
+
+        Set<Long> qcIds = new HashSet<>();
+        qcIds.add(1L);
+        qcIds.add(2L);
+
+        when(qcRepository.findAllById(qcIds)).thenReturn(someQCs);
+
+        List<QC> actual = qcRepository.findAllById(qcIds);
+
+        assertEquals(someQCs, actual);
+
 
     }
 

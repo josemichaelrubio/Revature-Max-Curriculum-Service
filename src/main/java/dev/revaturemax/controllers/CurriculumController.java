@@ -134,9 +134,12 @@ public class CurriculumController {
         return curriculumService.removeQuiz(techId, quizId);
     }
 
-    @GetMapping(value = "/qcs", produces = "application/json")
-    public ResponseEntity<List<QC>> getAllQC() {
-        return ResponseEntity.ok().body(curriculumService.getAllQC());
+    @GetMapping(value="/qcs", produces="application/json")
+    public ResponseEntity<List<QC>> getMultipleQCs(@RequestParam(required = false) Set<Long> qcIds) {
+        if (qcIds != null)
+            return ResponseEntity.ok(curriculumService.getMultipleQCs(qcIds));
+        else
+            return ResponseEntity.ok().body(curriculumService.getAllQC());
     }
 
 }

@@ -50,12 +50,9 @@ public class BatchDayService {
         long batchId = batchDayRequest.getBatchId();
         Optional<BatchDay> day = batchDayRepository.findBatchDayByBatchIdAndDate(batchId, date);
         if (day!=null && day.isPresent()) {
-            if (batchDayRequest.getQuiz() != null)
-                day.get().setQuiz(quizRepository.getOne(batchDayRequest.getQuiz().getQuizId()));
-            if (batchDayRequest.getQc() != null)
-                day.get().setQc(qcRepository.findById(batchDayRequest.getQc().getId()).orElse(null));
-            day.get().setTopics(batchDayRequest.getTopics());
+            day.get().setQuiz(batchDayRequest.getQuiz());
             day.get().setQc(batchDayRequest.getQc());
+            day.get().setTopics(batchDayRequest.getTopics());
            batchDayRepository.save(day.get());
         } else {
             BatchDay newDay = new BatchDay(date, batchId, batchDayRequest.getTopics(), batchDayRequest.getQuiz(), batchDayRequest.getQc());

@@ -99,8 +99,11 @@ public class CurriculumController {
 
     // method for getting quizzes with a list of quiz id's in the query param (i.e. /curriculum/quizzes?id=1,2,3,4,5
     @GetMapping(value = "/quizzes", produces = "application/json")
-    public ResponseEntity<List<Quiz>> getMultipleQuizzes(@RequestParam Set<Long> ids){
-        return ResponseEntity.ok().body(curriculumService.getMultipleQuizzes(ids));
+    public ResponseEntity<List<Quiz>> getMultipleQuizzes(@RequestParam(required = false) Set<Long> ids){
+        if (ids != null)
+            return ResponseEntity.ok().body(curriculumService.getMultipleQuizzes(ids));
+        else
+            return ResponseEntity.ok().body(curriculumService.getAllQuizzes());
     }
 
 

@@ -119,5 +119,7 @@ public class CurriculumService {
     }
 
 
-
+	public List<Quiz> getAllQuizzes() {
+        return quizRepository.findAll();
+	}
 }

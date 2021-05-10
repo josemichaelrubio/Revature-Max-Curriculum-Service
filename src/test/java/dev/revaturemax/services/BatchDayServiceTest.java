@@ -106,7 +106,7 @@ class BatchDayServiceTest {
         BatchDay bd = new BatchDay();
         bd.setId(9l);
         Quiz quiz = new Quiz();
-        quiz.setQuizId(3l);
+        quiz.setId(3l);
 
         when(batchDayRepository.findById(9l)).thenReturn(Optional.of(bd));
         when(quizRepository.getOne(3l)).thenReturn(quiz);

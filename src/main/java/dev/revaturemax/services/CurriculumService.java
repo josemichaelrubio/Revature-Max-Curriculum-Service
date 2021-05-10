@@ -6,7 +6,6 @@ import dev.revaturemax.models.Tech;
 import dev.revaturemax.models.Topic;
 import dev.revaturemax.projections.TopicDTO;
 import dev.revaturemax.repositories.*;
-import org.apache.commons.codec.net.QCodec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -48,7 +47,8 @@ public class CurriculumService {
 
     // service crud methods for topics within a specific technology
     public List<Topic> getTopics(long techId){
-        return techRepository.getOne(techId).getTopics();
+        return topicRepository.findAllByTechId(techId);
+//        return techRepository.getOne(techId).getTopics();
     }
 
     // getting multiple topics from a set of ids
@@ -123,5 +123,11 @@ public class CurriculumService {
     }
 
 
+	public List<Quiz> getAllQuizzes() {
+        return quizRepository.findAll();
+	}
 
+    public List<QC> getAllQC() {
+        return qcRepository.findAll();
+    }
 }

@@ -121,4 +121,12 @@ public class BatchDay {
     public void setQc(QC qc) {
         this.qc = qc;
     }
+
+    public long getBatchId() {
+        return batchId;
+    }
+
+    public void setBatchId(long batchId) {
+        this.batchId = batchId;
+    }
 }

@@ -34,14 +34,9 @@ public class BatchDayService {
     private BatchDayRepository batchDayRepository;
 
     @Transactional
-    public ResponseEntity<String> getAllBatchDays(long batchId){
+    public ResponseEntity<List<BatchDay>> getAllBatchDays(long batchId){
         List<BatchDay> days1 = batchDayRepository.findBatchDayByBatchId(batchId);
-        try {
-            return new ResponseEntity<String>(objectMapper.writeValueAsString(days1),HttpStatus.OK);
-        } catch (JsonProcessingException exception) {
-            exception.printStackTrace();
-            return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        return new ResponseEntity<List<BatchDay>>(days1,HttpStatus.OK);
     }
 
     @Transactional

@@ -1,13 +1,11 @@
 package dev.revaturemax.services;
 
+import dev.revaturemax.models.QC;
 import dev.revaturemax.models.Quiz;
 import dev.revaturemax.models.Tech;
 import dev.revaturemax.models.Topic;
 import dev.revaturemax.projections.TopicDTO;
-import dev.revaturemax.repositories.CurriculumRepository;
-import dev.revaturemax.repositories.QuizRepository;
-import dev.revaturemax.repositories.TechRepository;
-import dev.revaturemax.repositories.TopicRepository;
+import dev.revaturemax.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +25,8 @@ public class CurriculumService {
     private TechRepository techRepository;
     @Autowired
     private QuizRepository quizRepository;
+    @Autowired
+    private QCRepository qcRepository;
 
     // service crud methods for technologies specific to a curriculum
     public List<Tech> getAllTech(long curriculumId){
@@ -122,4 +122,8 @@ public class CurriculumService {
 	public List<Quiz> getAllQuizzes() {
         return quizRepository.findAll();
 	}
+
+    public List<QC> getAllQC() {
+        return qcRepository.findAll();
+    }
 }

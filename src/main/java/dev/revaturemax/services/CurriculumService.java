@@ -47,7 +47,8 @@ public class CurriculumService {
 
     // service crud methods for topics within a specific technology
     public List<Topic> getTopics(long techId){
-        return techRepository.getOne(techId).getTopics();
+        return topicRepository.findAllByTechId(techId);
+//        return techRepository.getOne(techId).getTopics();
     }
 
     // getting multiple topics from a set of ids

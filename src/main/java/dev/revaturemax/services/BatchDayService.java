@@ -8,6 +8,7 @@ import dev.revaturemax.dto.BatchDayRequest;
 import dev.revaturemax.models.BatchDay;
 import dev.revaturemax.models.Quiz;
 import dev.revaturemax.repositories.BatchDayRepository;
+import dev.revaturemax.repositories.QCRepository;
 import dev.revaturemax.repositories.QuizRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,17 +29,14 @@ public class BatchDayService {
     @Autowired
     private QuizRepository quizRepository;
     @Autowired
+    private QCRepository qcRepository;
+    @Autowired
     private BatchDayRepository batchDayRepository;
 
     @Transactional
-    public ResponseEntity<String> getAllBatchDays(long batchId){
+    public ResponseEntity<List<BatchDay>> getAllBatchDays(long batchId){
         List<BatchDay> days1 = batchDayRepository.findBatchDayByBatchId(batchId);
-        try {
-            return new ResponseEntity<String>(objectMapper.writeValueAsString(days1),HttpStatus.OK);
-        } catch (JsonProcessingException exception) {
-            exception.printStackTrace();
-            return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        return new ResponseEntity<List<BatchDay>>(days1,HttpStatus.OK);
     }
 
     @Transactional
@@ -48,8 +46,8 @@ public class BatchDayService {
         Optional<BatchDay> day = batchDayRepository.findBatchDayByBatchIdAndDate(batchId, date);
         if (day!=null && day.isPresent()) {
             day.get().setQuiz(batchDayRequest.getQuiz());
-            day.get().setTopics(batchDayRequest.getTopics());
             day.get().setQc(batchDayRequest.getQc());
+            day.get().setTopics(batchDayRequest.getTopics());
            batchDayRepository.save(day.get());
         } else {
             BatchDay newDay = new BatchDay(date, batchId, batchDayRequest.getTopics(), batchDayRequest.getQuiz(), batchDayRequest.getQc());

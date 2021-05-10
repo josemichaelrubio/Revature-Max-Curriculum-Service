@@ -51,7 +51,7 @@ class BatchDayServiceTest {
         bds.add(b);
         when(batchDayRepository.findBatchDayByBatchId(3l)).thenReturn(bds);
         when(objectMapper.writeValueAsString(bds)).thenThrow(JsonProcessingException.class);
-        ResponseEntity<String> re = batchDayService.getAllBatchDays(3l);
+        ResponseEntity<List<BatchDay>> re = batchDayService.getAllBatchDays(3l);
 
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,re.getStatusCode());
     }
@@ -83,12 +83,12 @@ class BatchDayServiceTest {
         ResponseEntity<String> expected = new ResponseEntity<String>(objectMapper.writeValueAsString(days),
                 HttpStatus.OK);
 
-        ResponseEntity<String> actual = batchDayService.getAllBatchDays(3l);
+        ResponseEntity<List<BatchDay>> actual = batchDayService.getAllBatchDays(3l);
 
         boolean check = actual.getStatusCode().equals(expected.getStatusCode());
         assertAll(
                 () -> assertEquals(expected.getStatusCode(), actual.getStatusCode()),
-                () -> assertEquals(expected.getBody(), actual.getBody())
+                () -> assertEquals(days, actual.getBody())
         );
     }
 
@@ -106,7 +106,7 @@ class BatchDayServiceTest {
         BatchDay bd = new BatchDay();
         bd.setId(9l);
         Quiz quiz = new Quiz();
-        quiz.setQuizId(3l);
+        quiz.setId(3l);
 
         when(batchDayRepository.findById(9l)).thenReturn(Optional.of(bd));
         when(quizRepository.getOne(3l)).thenReturn(quiz);

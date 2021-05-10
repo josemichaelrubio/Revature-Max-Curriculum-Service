@@ -1,5 +1,6 @@
 package dev.revaturemax.controllers;
 
+import dev.revaturemax.models.QC;
 import dev.revaturemax.models.Quiz;
 import dev.revaturemax.models.Tech;
 import dev.revaturemax.models.Topic;
@@ -99,8 +100,11 @@ public class CurriculumController {
 
     // method for getting quizzes with a list of quiz id's in the query param (i.e. /curriculum/quizzes?id=1,2,3,4,5
     @GetMapping(value = "/quizzes", produces = "application/json")
-    public ResponseEntity<List<Quiz>> getMultipleQuizzes(@RequestParam Set<Long> ids){
-        return ResponseEntity.ok().body(curriculumService.getMultipleQuizzes(ids));
+    public ResponseEntity<List<Quiz>> getMultipleQuizzes(@RequestParam(required = false) Set<Long> ids){
+        if (ids != null)
+            return ResponseEntity.ok().body(curriculumService.getMultipleQuizzes(ids));
+        else
+            return ResponseEntity.ok().body(curriculumService.getAllQuizzes());
     }
 
 
@@ -128,6 +132,11 @@ public class CurriculumController {
                                              @PathVariable("quiz-id") long quizId)
     {
         return curriculumService.removeQuiz(techId, quizId);
+    }
+
+    @GetMapping(value = "/qcs", produces = "application/json")
+    public ResponseEntity<List<QC>> getAllQC() {
+        return ResponseEntity.ok().body(curriculumService.getAllQC());
     }
 
 }

@@ -13,7 +13,7 @@ pipeline {
    stages {
       stage('checkout'){
           steps {
-               git branch: 'master',
+               git branch: 'dev',
                url: 'https://gitlab.com/210301-java-azure/project3/revature-max-curriculum-service.git'
            }
       }

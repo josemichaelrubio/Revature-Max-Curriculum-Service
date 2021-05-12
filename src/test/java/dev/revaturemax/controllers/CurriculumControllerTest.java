@@ -14,6 +14,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -26,7 +27,7 @@ import java.util.Optional;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.hasItems;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT) // this parameter is for web applications
@@ -107,5 +108,22 @@ public class CurriculumControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string(containsString("Tech2")));
     }
 
+    // The below test does not work as intended, and needs revision to be useful.
+    @Test
+    void testPostNewTopicTag() throws Exception {
+
+        Tech newTech = new Tech(1L, "Tech1");
+        when(curriculumService.createTech(newTech)).thenReturn(newTech);
+
+        mockMvc.perform(post("/curriculum/techs"))
+                .andExpect(MockMvcResultMatchers.content().string(""));
+    }
+
+    @Test
+    void testDeleteTopicTag() throws Exception {
+
+        mockMvc.perform(delete("/curriculum/techs/1"))
+                .andExpect(MockMvcResultMatchers.status().is(202));
+    }
 
 }

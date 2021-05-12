@@ -45,15 +45,14 @@ class BatchDayServiceTest {
     private ObjectMapper objectMapper;
 
     @Test
-    void getAllBatchDays_JsonProcessingException() throws JsonProcessingException {
+    void getAllBatchDays_status_OK_without_JSON_parsing() {
         List<BatchDay> bds = new ArrayList<>();
         BatchDay b = new BatchDay(3l,null,null,null,null);
         bds.add(b);
         when(batchDayRepository.findBatchDayByBatchId(3l)).thenReturn(bds);
-        when(objectMapper.writeValueAsString(bds)).thenThrow(JsonProcessingException.class);
         ResponseEntity<List<BatchDay>> re = batchDayService.getAllBatchDays(3l);
 
-        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,re.getStatusCode());
+        assertEquals(HttpStatus.OK, re.getStatusCode());
     }
 
     @Test

@@ -1,0 +1,1 @@
+{"Token":"","Service":{"ID":"batch-service-8083","Service":"batch-service","Tags":[],"Address":"LAPTOP-HAIRUEGR.attlocal.net","Meta":{"secure":"false"},"Port":8083,"Weights":{"Passing":1,"Warning":1},"EnableTagOverride":false,"Proxy":{"MeshGateway":{},"Expose":{}},"Connect":{},"CreateIndex":0,"ModifyIndex":0},"Source":"remote"}

@@ -29,6 +29,7 @@ public class CurriculumService {
     private QCRepository qcRepository;
 
     // service crud methods for technologies specific to a curriculum
+    @Transactional
     public List<Tech> getAllTech(long curriculumId){
         return curriculumRepository.getOne(curriculumId).getTechs();
     }

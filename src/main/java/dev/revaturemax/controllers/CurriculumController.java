@@ -26,7 +26,7 @@ public class CurriculumController {
 
 
     // CRUD methods for technologies
-    @GetMapping("/{curriculum-id}/techs")
+    @GetMapping("/{id}/techs")
     public ResponseEntity<List<Tech>> getCurriculumTechs(@PathVariable long id){
         return ResponseEntity.ok().body(curriculumService.getAllTech(id));
     }

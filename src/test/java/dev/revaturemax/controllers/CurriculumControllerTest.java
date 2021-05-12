@@ -9,16 +9,21 @@ import dev.revaturemax.services.CurriculumService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultMatcher;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.hasItems;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -47,9 +52,9 @@ public class CurriculumControllerTest {
 
     @BeforeEach
     public void setup(){
-//        MockitoAnnotations.openMocks(this);
-//        this.mockMvc = MockMvcBuilders.standaloneSetup(curriculumController).build();
-//
+        MockitoAnnotations.openMocks(this);
+        this.mockMvc = MockMvcBuilders.standaloneSetup(curriculumController).build();
+
 //        techNull = new Tech();
 //
 //        listOfTopics = new ArrayList<>();
@@ -57,10 +62,10 @@ public class CurriculumControllerTest {
 //        listOfTopics.add(2L);
 //
 //        listOfQuestions = new ArrayList<>();
-//
-//
-//
-//
+
+
+
+
 //        techUno = new Tech("java", null,null,null);
 //        techUno.setId(1);
 //
@@ -78,18 +83,28 @@ public class CurriculumControllerTest {
     @Test
     void testGetCurriculumTechs() throws Exception {
 
-        Curriculum curriculum1 = new Curriculum(1L, "Curriculum1", null);
         List<Tech> techs = new ArrayList<>();
         techs.add(new Tech(1L, "Tech1"));
         techs.add(new Tech(2L, "Tech2"));
 
         when(curriculumService.getAllTech(1L)).thenReturn(techs);
+        mockMvc.perform(get("/curriculum/1/techs"))
+                .andExpect(MockMvcResultMatchers.content().string(containsString("Tech1")))
+                .andExpect(MockMvcResultMatchers.content().string(containsString("Tech2")));
+    }
 
-        this.mockMvc.perform(get("/1/techs"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$[*].name")
-                        .value(hasItems("Tech1", "Tech2")));
+    @Test
+    void testGetTechs() throws Exception {
+
+        List<Tech> techs = new ArrayList<>();
+        techs.add(new Tech(1L, "Tech1"));
+        techs.add(new Tech(2L, "Tech2"));
+
+        when(curriculumService.getTechs()).thenReturn(techs);
+
+        mockMvc.perform(get("/curriculum/techs"))
+                .andExpect(MockMvcResultMatchers.content().string(containsString("Tech1")))
+                .andExpect(MockMvcResultMatchers.content().string(containsString("Tech2")));
     }
 
 

@@ -1,5 +1,7 @@
 package dev.revaturemax.models;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -25,7 +27,8 @@ public class BatchDay {
     @Column(name = "batch_id")
     private long batchId;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
+    @Fetch(FetchMode.JOIN)
     @JoinTable(name = "batch_day_topic",
             joinColumns = @JoinColumn(name = "batch_day_id"),
             inverseJoinColumns = @JoinColumn(name="topic_id"))
@@ -120,5 +123,13 @@ public class BatchDay {
 
     public void setQc(QC qc) {
         this.qc = qc;
+    }
+
+    public long getBatchId() {
+        return batchId;
+    }
+
+    public void setBatchId(long batchId) {
+        this.batchId = batchId;
     }
 }

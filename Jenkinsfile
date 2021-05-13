@@ -13,7 +13,7 @@ pipeline {
    stages {
       stage('checkout'){
           steps {
-               git branch: 'master',
+               git branch: 'dev',
                url: 'https://gitlab.com/210301-java-azure/project3/revature-max-curriculum-service.git'
            }
       }
@@ -46,7 +46,7 @@ pipeline {
         }
         stage('create/run new container') {
             steps {
-                sh 'docker run -d --rm --network host -p ${PORT}:${PORT} -e DB_USER -e DB_PASS -e DB_URL --name ${CONTAINER_NAME} ${IMAGE_TAG}'
+                sh 'docker run -d --rm --network host -p ${PORT}:${PORT} -e SPRING_PROFILES_ACTIVE=prod -e DB_USER=${DB_USER} -e DB_PASS=${DB_PASS} -e DB_URL=${DB_URL} --name ${CONTAINER_NAME} ${IMAGE_TAG}'
             }
         }
     }

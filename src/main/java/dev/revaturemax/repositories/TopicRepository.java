@@ -14,4 +14,6 @@ public interface TopicRepository extends JpaRepository<Topic, Long> {
 
     @Query("select new dev.revaturemax.projections.TopicDTO(t.id, t.tech.name) from Topic t where t.id in :topicIds")
     public List<TopicDTO> findAllById(Set<Long> topicIds);
+
+    public List<Topic> findAllByTechId(Long techId);
 }

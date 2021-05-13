@@ -1,5 +1,7 @@
 package dev.revaturemax.models;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -17,11 +19,12 @@ public class Quiz {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "quiz_id")
-    private long quizId;
+    private long id;
 
     private String name;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SELECT)
     @JoinTable(name = "quiz_tech",
             joinColumns = @JoinColumn(name = "quiz_id"),
             inverseJoinColumns = @JoinColumn(name="tech_id"))
@@ -30,17 +33,17 @@ public class Quiz {
     public Quiz() { }
 
     public Quiz(long quizId, String name, List<Tech> techs) {
-        this.quizId = quizId;
+        this.id = quizId;
         this.name = name;
         this.techs = techs;
     }
 
-    public long getQuizId() {
-        return quizId;
+    public long getId() {
+        return id;
     }
 
-    public void setQuizId(long quizId) {
-        this.quizId = quizId;
+    public void setId(long quizId) {
+        this.id = quizId;
     }
 
     public String getName() {
@@ -64,18 +67,18 @@ public class Quiz {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Quiz quiz = (Quiz) o;
-        return quizId == quiz.quizId && Objects.equals(name, quiz.name) && Objects.equals(techs, quiz.techs);
+        return id == quiz.id && Objects.equals(name, quiz.name) && Objects.equals(techs, quiz.techs);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(quizId, name, techs);
+        return Objects.hash(id, name, techs);
     }
 
     @Override
     public String toString() {
         return "Quiz{" +
-                "quizId=" + quizId +
+                "quizId=" + id +
                 ", name='" + name + '\'' +
                 ", techs=" + techs +
                 '}';

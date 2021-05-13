@@ -1,7 +1,10 @@
 package dev.revaturemax.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.springframework.context.annotation.Scope;
+import org.springframework.data.repository.cdi.Eager;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -22,7 +25,8 @@ public class Tech {
 
     private String name;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SELECT)
     private List<Topic> topics = new ArrayList<>();
 
     public List<Topic> getTopics() {
@@ -41,7 +45,8 @@ public class Tech {
         this.questions = questions;
     }
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SELECT)
     private List<TechReview> questions = new ArrayList<>();
 
     public Tech(Long id, String name, List<Topic> topics, List<TechReview> questions) {

@@ -1,10 +1,13 @@
 package dev.revaturemax.controllers;
 
 import dev.revaturemax.dto.BatchDayRequest;
+import dev.revaturemax.models.BatchDay;
 import dev.revaturemax.services.BatchDayService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @CrossOrigin
 @RestController
@@ -16,7 +19,7 @@ public class BatchDayController {
 
     // get and put mapping for batch days -- refactored from curriculum mapping in original batch controller
     @GetMapping(produces = "application/json")
-    public ResponseEntity<String> getBatchDays(@RequestParam("batch") long batchId){
+    public ResponseEntity<List<BatchDay>> getBatchDays(@RequestParam("batch") long batchId){
         return batchDayService.getAllBatchDays(batchId);
     }
 

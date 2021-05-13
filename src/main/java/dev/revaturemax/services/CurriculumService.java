@@ -1,13 +1,11 @@
 package dev.revaturemax.services;
 
+import dev.revaturemax.models.QC;
 import dev.revaturemax.models.Quiz;
 import dev.revaturemax.models.Tech;
 import dev.revaturemax.models.Topic;
 import dev.revaturemax.projections.TopicDTO;
-import dev.revaturemax.repositories.CurriculumRepository;
-import dev.revaturemax.repositories.QuizRepository;
-import dev.revaturemax.repositories.TechRepository;
-import dev.revaturemax.repositories.TopicRepository;
+import dev.revaturemax.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,8 +25,11 @@ public class CurriculumService {
     private TechRepository techRepository;
     @Autowired
     private QuizRepository quizRepository;
+    @Autowired
+    private QCRepository qcRepository;
 
     // service crud methods for technologies specific to a curriculum
+    @Transactional
     public List<Tech> getAllTech(long curriculumId){
         return curriculumRepository.getOne(curriculumId).getTechs();
     }
@@ -47,7 +48,8 @@ public class CurriculumService {
 
     // service crud methods for topics within a specific technology
     public List<Topic> getTopics(long techId){
-        return techRepository.getOne(techId).getTopics();
+        return topicRepository.findAllByTechId(techId);
+//        return techRepository.getOne(techId).getTopics();
     }
 
     // getting multiple topics from a set of ids
@@ -117,6 +119,16 @@ public class CurriculumService {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    public List<QC> getMultipleQCs(Set<Long> qcIds) {
+        return qcRepository.findAllById(qcIds);
+    }
 
 
+	public List<Quiz> getAllQuizzes() {
+        return quizRepository.findAll();
+	}
+
+    public List<QC> getAllQC() {
+        return qcRepository.findAll();
+    }
 }
